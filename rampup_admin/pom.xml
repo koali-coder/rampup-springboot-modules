@@ -33,6 +33,12 @@
             <version>1.0.0</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.demo</groupId>-->
+<!--            <artifactId>rampup_auth</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
