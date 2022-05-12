@@ -5,6 +5,7 @@ import com.demo.rampup.auth.model.LoginBody;
 import com.demo.rampup.auth.model.LoginUser;
 import com.demo.rampup.auth.server.LoginServer;
 import com.demo.rampup.auth.server.TokenServer;
+import com.demo.rampup.auth.util.PasswordCryptUtil;
 import com.demo.rampup.common.model.RestData;
 import com.demo.rampup.common.redis.RedisCache;
 import com.demo.rampup.common.utils.ServletUtils;
@@ -50,6 +51,7 @@ public class LoginController {
     @PostMapping("/login")
     public RestData login(@RequestBody LoginBody loginBody) {
         try {
+            String password = PasswordCryptUtil.desEncrypt(loginBody.getPassword());
             String token = loginServer.login(loginBody.getUsername(), loginBody.getPassword(),
                     loginBody.getCode(), loginBody.getRandom());
             return RestData.success(token);

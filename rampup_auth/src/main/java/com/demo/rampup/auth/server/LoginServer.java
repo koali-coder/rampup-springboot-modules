@@ -5,12 +5,12 @@ import com.demo.rampup.auth.model.LoginUser;
 import com.demo.rampup.common.exception.CaptchaExpireException;
 import com.demo.rampup.common.redis.RedisCache;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -46,7 +46,7 @@ public class LoginServer {
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
         if (StringUtils.isEmpty(captcha)) {
-            throw new CaptchaExpireException("请输入验证码");
+            throw new CaptchaExpireException("验证码已过期");
         } else if (!code.equals(captcha)) {
             throw new CaptchaExpireException("验证码错误");
         }
