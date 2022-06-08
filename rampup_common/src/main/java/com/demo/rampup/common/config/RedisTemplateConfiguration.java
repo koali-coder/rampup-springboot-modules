@@ -1,5 +1,6 @@
 package com.demo.rampup.common.config;
 
+import com.demo.rampup.common.redis.FastJson2JsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,18 +32,16 @@ public class RedisTemplateConfiguration {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(factory);
 
-		// 使用Jackson2JsonRedisSerialize 替换默认序列化
-//		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-//
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		FastJson2JsonRedisSerializer fastJson2JsonRedisSerializer = new FastJson2JsonRedisSerializer(Object.class);
 
-//		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		fastJson2JsonRedisSerializer.setObjectMapper(mapper);
 
 		// 设置key的序列化规则 和 value的序列化规则
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
-//		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+		redisTemplate.setValueSerializer(fastJson2JsonRedisSerializer);
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
