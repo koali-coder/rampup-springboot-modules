@@ -32,17 +32,17 @@ public class RedisTemplateConfiguration {
 		redisTemplate.setConnectionFactory(factory);
 
 		// 使用Jackson2JsonRedisSerialize 替换默认序列化
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+//		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+//
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-
-		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+//		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
 		// 设置key的序列化规则 和 value的序列化规则
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+//		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
