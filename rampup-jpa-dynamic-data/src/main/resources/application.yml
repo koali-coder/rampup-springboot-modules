@@ -1,0 +1,18 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: magus-client
+  # 数据库
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/druid_test_master
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    # 显示sql语句
+    # show-sql: true
+    hibernate:
+      # 自动建表
+      ddl-auto: update
